@@ -13,6 +13,11 @@ Cargo.lock
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
 
+# Engine specific
+deny.toml
+
+# Ignore themes (e.g. background music, sound effects etc.) 
+themes/
 
 # Added by cargo
 

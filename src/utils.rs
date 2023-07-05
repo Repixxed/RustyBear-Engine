@@ -1,6 +1,8 @@
-use std::{ops, time::Instant};
+use std::ops;
+use instant::Instant;
 
 
+#[derive(Default)]
 pub struct Timestep {
     delta: f64,
     last: u128,
@@ -16,7 +18,7 @@ impl Timestep {
     pub fn step_fwd(&mut self) -> &mut Self
     {
         self.delta = Instant::now().elapsed().as_nanos().saturating_sub(self.last) as f64 / 1000.0;
-        return self;
+        self
     } 
 
     pub fn nanos(&self) -> i64
@@ -39,15 +41,15 @@ impl From<f64> for Timestep {
 
     fn from(delta: f64) -> Timestep 
     {
-        Timestep { delta: delta, last: Instant::now().elapsed().as_nanos() }
+        Timestep { delta, last: Instant::now().elapsed().as_nanos() }
     }
 }
 
-impl Into<f64> for Timestep {
+impl From<Timestep> for f64 {
 
-    fn into(self) -> f64 
+    fn from(value: Timestep) -> f64 
     {
-        self.delta
+        value.delta
     }
 }
 
